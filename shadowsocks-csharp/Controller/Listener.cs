@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Text;
 using System.Timers;
 
 namespace Shadowsocks.Controller
@@ -24,7 +23,7 @@ namespace Shadowsocks.Controller
         Socket _socket_v6;
         bool _stop;
         IList<Service> _services;
-        protected System.Timers.Timer timer;
+        protected Timer timer;
         protected object timerLock = new object();
 
         public Listener(IList<Service> services)

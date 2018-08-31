@@ -9,6 +9,7 @@ namespace Shadowsocks.Controller
         static string Key = "ShadowsocksR_" + Application.StartupPath.GetHashCode();
         static string RegistryRunPath = (IntPtr.Size == 4 ? @"Software\Microsoft\Windows\CurrentVersion\Run" : @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Run");
 
+        // set new start on boot value to Registry 
         public static bool Set(bool enabled)
         {
             RegistryKey runKey = null;
@@ -93,7 +94,6 @@ namespace Shadowsocks.Controller
             RegistryKey runKey = null;
             try
             {
-                string path = Util.Utils.GetExecutablePath();
                 runKey = Registry.LocalMachine.OpenSubKey(RegistryRunPath, false);
                 string[] runList = runKey.GetValueNames();
                 runKey.Close();

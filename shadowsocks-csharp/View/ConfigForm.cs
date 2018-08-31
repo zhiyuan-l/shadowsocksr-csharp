@@ -106,7 +106,7 @@ namespace Shadowsocks.View
             //MyCancelButton.Width = MyCancelButton.Width * dpi_mul / 4;
             MyCancelButton.Height = MyCancelButton.Height * dpi_mul / 4;
 
-            DrawLogo(350 * dpi_mul / 4);
+            // DrawLogo(350 * dpi_mul / 4);
             //DrawLogo(350);
 
             ShowWindow();
@@ -260,10 +260,11 @@ namespace Shadowsocks.View
             using (Graphics g = Graphics.FromImage(drawArea))
             {
                 g.Clear(Color.White);
-                Bitmap ngnl = Resources.ngnl;
-                g.DrawImage(ngnl, new Rectangle(0, 0, width, width));
-                if (!_modifiedConfiguration.isHideTips)
-                    g.DrawString("Click the 'Link' text box", new Font("Arial", 14), new SolidBrush(Color.Black), new RectangleF(0, 0, 300, 300));
+                Bitmap logo = Resources.qrcode_logo;
+                g.DrawImage(logo, new Rectangle(0, 0, width, width));
+                // do not display tips
+                // (!_modifiedConfiguration.isHideTips)
+                    // g.DrawString("Click the 'Link' text box", new Font("Arial", 14), new SolidBrush(Color.Black), new RectangleF(0, 0, 300, 300));
             }
             PictureQRcode.Image = drawArea;
         }
@@ -296,10 +297,11 @@ namespace Shadowsocks.View
                             }
                         }
                     }
-                    Bitmap ngnl = Resources.ngnl;
-                    int div = 13, div_l = 5, div_r = 8;
-                    int l = (m.Width * div_l + div - 1) / div * blockSize, r = (m.Width * div_r + div - 1) / div * blockSize;
-                    g.DrawImage(ngnl, new Rectangle(l + blockSize, l + blockSize, r - l, r - l));
+                    // don't embed logo in QRCode
+                    // Bitmap logo = Resources.qrcode_logo;
+                    // int div = 13, div_l = 5, div_r = 8;
+                    // int l = (m.Width * div_l + div - 1) / div * blockSize, r = (m.Width * div_r + div - 1) / div * blockSize;
+                    // g.DrawImage(logo, new Rectangle(l + blockSize, l + blockSize, r - l, r - l));
                 }
                 PictureQRcode.Image = drawArea;
                 PictureQRcode.Visible = true;
@@ -308,7 +310,8 @@ namespace Shadowsocks.View
             else
             {
                 //PictureQRcode.Visible = false;
-                DrawLogo(PictureQRcode.Width);
+                // stop display logo
+                // DrawLogo(PictureQRcode.Width);
             }
         }
 
@@ -691,18 +694,6 @@ namespace Shadowsocks.View
             System.Diagnostics.Process.Start(updateChecker.LatestVersionURL);
         }
 
-        private void PasswordLabel_CheckedChanged(object sender, EventArgs e)
-        {
-            if (PasswordLabel.Checked)
-            {
-                PasswordTextBox.UseSystemPasswordChar = false;
-            }
-            else
-            {
-                PasswordTextBox.UseSystemPasswordChar = true;
-            }
-        }
-
         private void UpdateObfsTextbox()
         {
             try
@@ -751,15 +742,11 @@ namespace Shadowsocks.View
             {
                 labelUDPPort.Visible = true;
                 NumUDPPort.Visible = true;
-                //TCPoverUDPLabel.Visible = true;
-                //CheckTCPoverUDP.Visible = true;
             }
             else
             {
                 labelUDPPort.Visible = false;
                 NumUDPPort.Visible = false;
-                //TCPoverUDPLabel.Visible = false;
-                //CheckTCPoverUDP.Visible = false;
             }
             if (checkAdvSetting.Checked)
             {
@@ -772,18 +759,6 @@ namespace Shadowsocks.View
                 CheckUDPoverUDP.Visible = false;
             }
             ResumeLayout();
-        }
-
-        private void IPLabel_CheckedChanged(object sender, EventArgs e)
-        {
-            if (IPLabel.Checked)
-            {
-                IPTextBox.UseSystemPasswordChar = false;
-            }
-            else
-            {
-                IPTextBox.UseSystemPasswordChar = true;
-            }
         }
     }
 }

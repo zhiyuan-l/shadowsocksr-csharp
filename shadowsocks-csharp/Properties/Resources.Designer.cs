@@ -19,7 +19,7 @@ namespace Shadowsocks.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -47,8 +47,7 @@ namespace Shadowsocks.Properties {
         }
         
         /// <summary>
-        ///   使用此强类型资源类，为所有资源查找
-        ///   重写当前线程的 CurrentUICulture 属性。
+        ///   重写当前线程的 CurrentUICulture 属性
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
@@ -61,30 +60,7 @@ namespace Shadowsocks.Properties {
         }
         
         /// <summary>
-        ///   查找类似 # translation for Simplified Chinese
-        ///
-        ///Shadowsocks=Shadowsocks
-        ///
-        ///# Menu items
-        ///
-        ///Disable system proxy=不修改系统(IE)代理
-        ///Mode=系统代理模式
-        ///PAC=PAC 模式
-        ///Global=全局模式
-        ///Proxy rule=代理规则
-        ///Bypass LAN=绕过局域网
-        ///Bypass LAN &amp;&amp; China=绕过局域网和大陆
-        ///Bypass LAN &amp;&amp; not China=绕过局域网和非大陆
-        ///Disable bypass=全局
-        ///Servers=服务器
-        ///Edit servers...=编辑服务器...
-        ///Import servers from file...=从文件导入服务器...
-        ///Global settings...=选项设置...
-        ///Start on Boot=开机启动
-        ///Allow Clients from LAN=允许来自局域网的连接
-        ///Load balance=服务器负载均衡
-        ///Same host for same address=优先相同节点连接同一地址
-        ///Enable domai [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///    language resources for Simplified Chinese
         /// </summary>
         internal static string cn {
             get {
@@ -123,16 +99,6 @@ namespace Shadowsocks.Properties {
         }
         
         /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap ngnl {
-            get {
-                object obj = ResourceManager.GetObject("ngnl", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 listen-address __PRIVOXY_BIND_IP__:__PRIVOXY_BIND_PORT__
         ///show-on-task-bar 0
         ///activity-animation 0
@@ -165,6 +131,16 @@ namespace Shadowsocks.Properties {
             get {
                 object obj = ResourceManager.GetObject("proxy_pac_txt", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap qrcode_logo {
+            get {
+                object obj = ResourceManager.GetObject("qrcode_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -220,30 +196,7 @@ namespace Shadowsocks.Properties {
         }
         
         /// <summary>
-        ///   查找类似 # translation for Traditional Chinese
-        ///
-        ///Shadowsocks=Shadowsocks
-        ///
-        ///# Menu items
-        ///
-        ///Disable system proxy=不修改系統(IE)代理
-        ///Mode=系統代理模式
-        ///PAC=PAC 模式
-        ///Global=全局模式
-        ///Proxy rule=代理規則
-        ///Bypass LAN=绕过區域網路
-        ///Bypass LAN &amp;&amp; China=绕过區域網路和大陸
-        ///Bypass LAN &amp;&amp; not China=绕过區域網路和非大陸
-        ///Disable bypass=全局
-        ///Servers=伺服器
-        ///Edit servers...=編輯伺服器...
-        ///Import servers from file...=從文件導入伺服器...
-        ///Global settings...=選項設置...
-        ///Start on Boot=開機啟動
-        ///Allow Clients from LAN=允許來自區域網路的連接
-        ///Load balance=伺服器負載均衡
-        ///Same host for same address=優先相同節點連接同一位址
-        ///Enable  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   language resources for Traditional Chinese
         /// </summary>
         internal static string zh_tw {
             get {

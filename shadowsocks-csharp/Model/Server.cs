@@ -284,7 +284,7 @@ namespace Shadowsocks.Model
 
         public Server()
         {
-            server = "server host";
+            server = "host";
             server_port = 8388;
             method = "aes-256-cfb";
             protocol = "origin";
@@ -293,7 +293,7 @@ namespace Shadowsocks.Model
             obfsparam = "";
             password = "0";
             remarks_base64 = "";
-            group = "FreeSSR-public";
+            group = "default";
             udp_over_tcp = false;
             enable = true;
             byte[] id = new byte[16];

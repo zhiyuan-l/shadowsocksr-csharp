@@ -79,7 +79,7 @@ namespace Shadowsocks.Controller
                                 {
                                     if (_config.proxyRuleMode == (int)ProxyRuleMode.UserCustom)
                                     {
-                                        Shadowsocks.Model.HostMap hostMap = HostMap.Instance();
+                                        HostMap hostMap = HostMap.Instance();
                                         string host_addr;
                                         if (hostMap.GetHost(host, out host_addr))
                                         {
@@ -178,7 +178,7 @@ namespace Shadowsocks.Controller
                     }
                     else
                     {
-                        if (Util.Utils.isLAN(ipAddress))
+                        if (Utils.isLAN(ipAddress))
                         {
                             return CONNECT_DIRECT;
                         }
@@ -309,7 +309,7 @@ namespace Shadowsocks.Controller
                                 {
                                     if (_remote_host.IndexOf('.') >= 0)
                                     {
-                                        ipAddress = Util.Utils.QueryDns(_remote_host, _config.localDnsServer);
+                                        ipAddress = Utils.QueryDns(_remote_host, _config.localDnsServer);
                                     }
                                     else
                                     {
@@ -332,7 +332,7 @@ namespace Shadowsocks.Controller
                     }
                     if (ipAddress != null && _config.proxyRuleMode == (int)ProxyRuleMode.UserCustom)
                     {
-                        Shadowsocks.Model.HostMap hostMap = HostMap.Instance();
+                        HostMap hostMap = HostMap.Instance();
                         string host_addr;
                         if (hostMap.GetIP(ipAddress, out host_addr))
                         {

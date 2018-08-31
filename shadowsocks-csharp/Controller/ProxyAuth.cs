@@ -403,7 +403,6 @@ namespace Shadowsocks.Controller
                 byte[] ip_bytes = ((IPEndPoint)_connection.LocalEndPoint).Address.GetAddressBytes();
                 Array.Copy(ip_bytes, 0, response, 4, 4);
                 _connection.Send(response);
-                Connect();
             }
             else
             {
@@ -413,8 +412,8 @@ namespace Shadowsocks.Controller
                 byte[] ip_bytes = ((IPEndPoint)_connection.LocalEndPoint).Address.GetAddressBytes();
                 Array.Copy(ip_bytes, 0, response, 4, 16);
                 _connection.Send(response);
-                Connect();
             }
+            Connect();
         }
 
         private void RspSocks5TCPHeader()
