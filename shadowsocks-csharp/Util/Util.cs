@@ -480,6 +480,31 @@ namespace Shadowsocks.Util
             return ret;
         }
 
+        public static int RunCommand(string fileName, string arguments, string verb)
+        {
+            Process process = null;
+            ProcessStartInfo processInfo = new ProcessStartInfo(fileName, arguments);
+            processInfo.Verb = verb;
+            processInfo.RedirectStandardOutput = true;
+            processInfo.UseShellExecute = false;
+            processInfo.CreateNoWindow = true;
+            try
+            {
+                process = Process.Start(processInfo);
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                return -1;
+            }
+            if (process != null)
+            {
+                process.WaitForExit();
+            }
+            int ret = process.ExitCode;
+            process.Close();
+            return ret;
+        }
+
         public static int GetDpiMul()
         {
             int dpi;

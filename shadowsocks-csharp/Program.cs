@@ -9,6 +9,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using Shadowsocks.Model;
+using Shadowsocks.Util;
 #if !_CONSOLE
 using Shadowsocks.View;
 #endif
@@ -28,6 +29,7 @@ namespace Shadowsocks
         [STAThread]
         static void Main(string[] args)
         {
+            // TunTest.Test();
 #if !_CONSOLE
             foreach (string arg in args)
             {
