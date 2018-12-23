@@ -99,9 +99,6 @@ namespace Shadowsocks.View
             updateChecker = new UpdateChecker();
             updateChecker.NewVersionFound += updateChecker_NewVersionFound;
 
-            updateFreeNodeChecker = new UpdateFreeNode();
-            updateFreeNodeChecker.NewFreeNodeFound += updateFreeNodeChecker_NewFreeNodeFound;
-
             updateSubscribeManager = new UpdateSubscribeManager();
 
             LoadCurrentConfiguration();

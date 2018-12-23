@@ -4,6 +4,7 @@ using Microsoft.Win32.SafeHandles;
 using Shadowsocks.Model;
 using Shadowsocks.Util;
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
@@ -19,8 +20,8 @@ namespace Shadowsocks.Controller
         private const string DEFAULT_INTERFACE_PRI_DNS = "1.1.1.1";
         private const string DEFAULT_INTERFACE_SEC_DNS = "1.1.0.0";
 
-        private const int FILE_ATTRIBUTE_SYSTEM = 0x4;
-        private const int FILE_FLAG_OVERLAPPED = 0x40000000;
+        public const int FILE_ATTRIBUTE_SYSTEM = 0x4;
+        public const int FILE_FLAG_OVERLAPPED = 0x40000000;
 
         public FileStream tap { get; private set; }
         public TunTap tun { get; private set; }
@@ -65,6 +66,21 @@ namespace Shadowsocks.Controller
                 tap = new FileStream(new SafeFileHandle(handle, true), FileAccess.ReadWrite, 10000, true);
 
                 int len;
+                IntPtr ps = Marshal.AllocHGlobal(1);
+                var flag = TunTap.DeviceIoControl(
+                    handle, // hDevice
+                    TunTap.TAP_WIN_IOCTL_GET_MAC, // IO control code
+                    ps, 100,      // IN buffer and size
+                    ps, 100,      // OUT buffer and size
+                    out len, // size returned
+                    IntPtr.Zero // overlapped
+                    );
+
+                if (!flag)
+                {
+                    throw new Win32Exception(Marshal.GetLastWin32Error());
+                }
+
                 // set the status of the device to be connected
                 IntPtr pstatus = Marshal.AllocHGlobal(4);
                 Marshal.WriteInt32(pstatus, 1);
@@ -100,7 +116,7 @@ namespace Shadowsocks.Controller
         //
         public static string GetOneDeviceGuid(string AdapterKey = TunTap.ADAPTER_KEY, string ComponentId = TunTap.DEFAULT_COMPONENT_ID)
         {
-            RegistryKey regAdapters = Registry.LocalMachine.OpenSubKey(AdapterKey, true);
+            RegistryKey regAdapters = Registry.LocalMachine.OpenSubKey(AdapterKey);
             string[] keyNames = regAdapters.GetSubKeyNames();
             string devGuid = "";
             foreach (string x in keyNames)
@@ -129,7 +145,7 @@ namespace Shadowsocks.Controller
         {
             if (guid != "")
             {
-                RegistryKey regConnection = Registry.LocalMachine.OpenSubKey($"{ConnectionKey}\\{guid}\\Connection", true);
+                RegistryKey regConnection = Registry.LocalMachine.OpenSubKey($"{ConnectionKey}\\{guid}\\Connection");
                 if (regConnection != null)
                 {
                     object name = regConnection.GetValue("Name");
@@ -217,6 +233,7 @@ namespace Shadowsocks.Controller
                 SetPrimaryDNS(name, primaryDNS);
                 SetSecondaryDNS(secondaryDNS);
                 SetInterfaceName(name, newname);
+                SetGlobalRoute();
                 reloadTunTap(tun);
             }
         }
@@ -233,6 +250,15 @@ namespace Shadowsocks.Controller
         public void reload()
         {
             reloadTunTap(this.tun);
+        }
+
+        public static void SetGlobalRoute()
+        {
+            IPForwardRow row = new IPForwardRow();
+            row.Dest = System.Net.IPAddress.Parse("0.0.0.0");
+            row.Mask = System.Net.IPAddress.Parse("0.0.0.0");
+            row.NextHop = System.Net.IPAddress.Parse(DEFAULT_INTERFACE_ADDRESS);
+            RouteTableUtil.CreateIpForwardEntry(row);
         }
 
         //

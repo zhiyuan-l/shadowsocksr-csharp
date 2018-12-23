@@ -27,6 +27,7 @@ namespace Shadowsocks.Controller
         private Listener _listener;
         private List<Listener> _port_map_listener;
         private PACServer _pacServer;
+        private TunTapService _tunTapService;
         private Configuration _config;
         private ServerTransferTotal _transfer;
         public IPRangeSet _rangeSet;
@@ -163,12 +164,12 @@ namespace Shadowsocks.Controller
 
         public Configuration MergeGetConfiguration(Configuration mergeConfig)
         {
-            Configuration ret = Configuration.Load();
+            Configuration latest = Configuration.Load();
             if (mergeConfig != null)
             {
-                MergeConfiguration(mergeConfig, ret.configs);
+                MergeConfiguration(mergeConfig, latest.configs);
             }
-            return ret;
+            return latest;
         }
 
         public void MergeConfiguration(Configuration mergeConfig)
@@ -363,9 +364,9 @@ namespace Shadowsocks.Controller
         {
             if (_port_map_listener != null)
             {
-                foreach (Listener l in _port_map_listener)
+                foreach (Listener listener in _port_map_listener)
                 {
-                    l.Stop();
+                    listener.Stop();
                 }
                 _port_map_listener = null;
             }
@@ -381,6 +382,7 @@ namespace Shadowsocks.Controller
 #if !_CONSOLE
             if (polipoRunner == null)
             {
+                // start http proxy
                 polipoRunner = new HttpProxyRunner();
             }
 #endif
@@ -392,9 +394,17 @@ namespace Shadowsocks.Controller
             _pacServer.UpdateConfiguration(_config);
             if (gfwListUpdater == null)
             {
+                // create gfwlist updater
                 gfwListUpdater = new GFWListUpdater();
                 gfwListUpdater.UpdateCompleted += pacServer_PACUpdateCompleted;
                 gfwListUpdater.Error += pacServer_PACUpdateError;
+            }
+
+            if(_tunTapService == null)
+            {
+                string guid = TunTapService.GetOneDeviceGuid();
+                _tunTapService = new TunTapService(guid);
+                _tunTapService.open();
             }
 
             // don't put polipoRunner.Start() before pacServer.Stop()
@@ -439,6 +449,7 @@ namespace Shadowsocks.Controller
                         services.Add(local);
                         services.Add(_pacServer);
                         services.Add(new APIServer(this, _config));
+                        services.Add(_tunTapService);
 #if !_CONSOLE
                         services.Add(new HttpPortForwarder(polipoRunner.RunningPort, _config));
 #endif
@@ -518,7 +529,6 @@ namespace Shadowsocks.Controller
             Configuration.Save(newConfig);
             Reload();
         }
-
 
         private void UpdateSystemProxy()
         {

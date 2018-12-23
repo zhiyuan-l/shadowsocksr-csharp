@@ -8,6 +8,10 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using Shadowsocks.Model;
 using System.Text;
+using SocksTun;
+using System.Configuration.Install;
+using System.Reflection;
+using System.ServiceProcess;
 
 namespace Shadowsocks.Util
 {
@@ -57,6 +61,44 @@ namespace Shadowsocks.Util
                 Tap.BeginWrite(buf, 0, BytesRead, writeCallback, asyncWriteState);
                 writeWait.WaitOne();
             }
+        }
+
+        public static void TestSocksTun()
+        {
+            string arg = "-f";
+            if (arg != "")
+            {
+                switch (arg)
+                {
+                    case "--foreground":
+                    case "/foreground":
+                    case "-f":
+                    case "/f":
+                        (new SocksTunService()).Run(null);
+                        return;
+                    case "--install":
+                    case "/install":
+                    case "-i":
+                    case "/i":
+                        ManagedInstallerClass.InstallHelper(new[] { Assembly.GetEntryAssembly().Location });
+                        return;
+                    case "--uninstall":
+                    case "/uninstall":
+                    case "-u":
+                    case "/u":
+                        ManagedInstallerClass.InstallHelper(new[] { "/uninstall", Assembly.GetEntryAssembly().Location });
+                        return;
+                    default:
+                        Console.WriteLine("Unknown command line parameters: " + string.Join(" ", null));
+                        return;
+                }
+            }
+            ServiceBase[] ServicesToRun;
+            ServicesToRun = new ServiceBase[]
+            {
+                new SocksTunService()
+            };
+            ServiceBase.Run(ServicesToRun);
         }
 
         public static void ReadCallback(IAsyncResult asyncResult)

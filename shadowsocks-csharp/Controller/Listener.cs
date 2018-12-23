@@ -167,6 +167,7 @@ namespace Shadowsocks.Controller
             }
         }
 
+        // shutdown listener
         public void Stop()
         {
             ResetTimeout(0, null);

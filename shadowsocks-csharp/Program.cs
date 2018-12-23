@@ -29,8 +29,11 @@ namespace Shadowsocks
         [STAThread]
         static void Main(string[] args)
         {
-            // TunTest.Test();
 #if !_CONSOLE
+            TunTest.TestSocksTun();
+            //TunTest.Test();
+            return;
+        
             foreach (string arg in args)
             {
                 if (arg == "--setautorun")

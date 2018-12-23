@@ -74,6 +74,10 @@ namespace Shadowsocks.Model
 
     public class GlobalConfiguration
     {
+        // key to the encrypted gui-config.json file
+        // by default, this password is empty
+        // if this value has been set, 
+        // reading the gui-config.json file is going to require this value to decrypt
         public static string config_password = "";
     }
 
@@ -103,6 +107,7 @@ namespace Shadowsocks.Model
     {
         public List<Server> configs;
         public int index;
+        // load balance status
         public bool random;
         public int sysProxyMode;
         public bool shareOverLan;
@@ -150,6 +155,7 @@ namespace Shadowsocks.Model
 
         private static string CONFIG_FILE = "gui-config.json";
 
+        // set global config password
         public static void SetPassword(string password)
         {
             GlobalConfiguration.config_password = password;
@@ -499,6 +505,7 @@ namespace Shadowsocks.Model
             return ret;
         }
 
+        // load latest config from file
         public static Configuration LoadFile(string filename)
         {
             try
@@ -521,6 +528,9 @@ namespace Shadowsocks.Model
             return LoadFile(CONFIG_FILE);
         }
 
+        // save new config content
+        // if the global password is non-empty
+        // encrypt the config file with this password using aes-256-cfb
         public static void Save(Configuration config)
         {
             if (config.index >= config.configs.Count)
@@ -534,6 +544,8 @@ namespace Shadowsocks.Model
             try
             {
                 string jsonString = SimpleJson.SimpleJson.SerializeObject(config);
+                // check the length of global config password
+                // if not empty, encrypt config file
                 if (GlobalConfiguration.config_password.Length > 0)
                 {
                     IEncryptor encryptor = EncryptorFactory.GetEncryptor("aes-256-cfb", GlobalConfiguration.config_password, false);
@@ -566,6 +578,8 @@ namespace Shadowsocks.Model
             }
         }
 
+        // load latest config from json string content
+        // if the config password is not empty, the config content is encrypted
         public static Configuration Load(string config_str)
         {
             try
@@ -644,6 +658,8 @@ namespace Shadowsocks.Model
             return server;
         }
 
+        // check port range
+        // the port must be in range of 0...65535
         public static void CheckPort(int port)
         {
             if (port <= 0 || port > 65535)

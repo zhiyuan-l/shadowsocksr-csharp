@@ -23,15 +23,15 @@ namespace Shadowsocks.Model
          
         /* Present in 8.1 */
 
-        public static uint TAP_WIN_IOCTL_GET_MAC = TAP_WIN_CONTROL_CODE(1, METHOD_BUFFERED);
-        public static uint TAP_WIN_IOCTL_GET_VERSION = TAP_WIN_CONTROL_CODE(2, METHOD_BUFFERED);
-        public static uint TAP_WIN_IOCTL_GET_MTU = TAP_WIN_CONTROL_CODE(3, METHOD_BUFFERED);
-        public static uint TAP_WIN_IOCTL_GET_INFO = TAP_WIN_CONTROL_CODE(4, METHOD_BUFFERED);
-        public static uint TAP_WIN_IOCTL_CONFIG_POINT_TO_POINT = TAP_WIN_CONTROL_CODE(5, METHOD_BUFFERED);
-        public static uint TAP_WIN_IOCTL_SET_MEDIA_STATUS = TAP_WIN_CONTROL_CODE(6, METHOD_BUFFERED);
-        public static uint TAP_WIN_IOCTL_CONFIG_DHCP_MASQ = TAP_WIN_CONTROL_CODE(7, METHOD_BUFFERED);
-        public static uint TAP_WIN_IOCTL_GET_LOG_LINE = TAP_WIN_CONTROL_CODE(8, METHOD_BUFFERED);
-        public static uint TAP_WIN_IOCTL_CONFIG_DHCP_SET_OPT = TAP_WIN_CONTROL_CODE(9, METHOD_BUFFERED);
+        public static uint TAP_WIN_IOCTL_GET_MAC                = TAP_WIN_CONTROL_CODE(1, METHOD_BUFFERED);
+        public static uint TAP_WIN_IOCTL_GET_VERSION            = TAP_WIN_CONTROL_CODE(2, METHOD_BUFFERED);
+        public static uint TAP_WIN_IOCTL_GET_MTU                = TAP_WIN_CONTROL_CODE(3, METHOD_BUFFERED);
+        public static uint TAP_WIN_IOCTL_GET_INFO               = TAP_WIN_CONTROL_CODE(4, METHOD_BUFFERED);
+        public static uint TAP_WIN_IOCTL_CONFIG_POINT_TO_POINT  = TAP_WIN_CONTROL_CODE(5, METHOD_BUFFERED);
+        public static uint TAP_WIN_IOCTL_SET_MEDIA_STATUS       = TAP_WIN_CONTROL_CODE(6, METHOD_BUFFERED);
+        public static uint TAP_WIN_IOCTL_CONFIG_DHCP_MASQ       = TAP_WIN_CONTROL_CODE(7, METHOD_BUFFERED);
+        public static uint TAP_WIN_IOCTL_GET_LOG_LINE           = TAP_WIN_CONTROL_CODE(8, METHOD_BUFFERED);
+        public static uint TAP_WIN_IOCTL_CONFIG_DHCP_SET_OPT    = TAP_WIN_CONTROL_CODE(9, METHOD_BUFFERED);
 
         /* Added in 8.2 */
 
@@ -43,9 +43,9 @@ namespace Shadowsocks.Model
          * Registry keys
          * =================
          */
-        public const string ADAPTER_KEY = "SYSTEM\\CurrentControlSet\\Control\\Class\\{4D36E972-E325-11CE-BFC1-08002BE10318}";
+        public const string ADAPTER_KEY                 = "SYSTEM\\CurrentControlSet\\Control\\Class\\{4D36E972-E325-11CE-BFC1-08002BE10318}";
 
-        public const string NETWORK_CONNECTIONS_KEY = "SYSTEM\\CurrentControlSet\\Control\\Network\\{4D36E972-E325-11CE-BFC1-08002BE10318}";
+        public const string NETWORK_CONNECTIONS_KEY     = "SYSTEM\\CurrentControlSet\\Control\\Network\\{4D36E972-E325-11CE-BFC1-08002BE10318}";
 
         /*
          * ======================
@@ -53,16 +53,16 @@ namespace Shadowsocks.Model
          * ======================
          */
 
-        public const string USERMODEDEVICEDIR = "\\\\.\\Global\\";
-        public const string SYSDEVICEDIR = "\\Device\\";
-        public const string USERDEVICEDIR = "\\DosDevices\\Global\\";
+        public const string USERMODEDEVICEDIR           = "\\\\.\\Global\\";
+        public const string SYSDEVICEDIR                = "\\Device\\";
+        public const string USERDEVICEDIR               = "\\DosDevices\\Global\\";
 
-        public const string TAP_WIN_SUFFIX = ".tap";
-        public const string DEFAULT_COMPONENT_ID = "tap0901";
-        
-        private const uint METHOD_BUFFERED = 0;
-        private const uint FILE_ANY_ACCESS = 0;
-        private const uint FILE_DEVICE_UNKNOWN = 0x00000022;
+        public const string TAP_WIN_SUFFIX              = ".tap";
+        public const string DEFAULT_COMPONENT_ID        = "tap0901";
+
+        public const uint METHOD_BUFFERED              = 0;
+        public const uint FILE_ANY_ACCESS              = 0;
+        public const uint FILE_DEVICE_UNKNOWN          = 0x00000022;
 
         public string devGuid { get; private set; } = string.Empty;
         public string name { get; set; } = string.Empty;

@@ -1,0 +1,42 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SocksTun.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="IPAddress" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">10.10.5.1</Value>
+    </Setting>
+    <Setting Name="DHCPNetmask" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">255.255.255.0</Value>
+    </Setting>
+    <Setting Name="DHCPServer" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">10.10.5.254</Value>
+    </Setting>
+    <Setting Name="RemoteNetwork" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">192.168.123.183</Value>
+    </Setting>
+    <Setting Name="RemoteNetmask" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">255.255.255.0</Value>
+    </Setting>
+    <Setting Name="SocksPort" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1080</Value>
+    </Setting>
+    <Setting Name="LogPort" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">58000</Value>
+    </Setting>
+    <Setting Name="DHCPLeaseTime" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">31536000</Value>
+    </Setting>
+    <Setting Name="Services" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="TunTapDevice" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SSETUN</Value>
+    </Setting>
+    <Setting Name="PrimaryDNS" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SecondaryDNS" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>
