@@ -73,6 +73,9 @@ namespace Shadowsocks.View
         private bool configfrom_open = false;
         private List<EventParams> eventList = new List<EventParams>();
 
+        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = CharSet.Auto)]
+        extern static bool DestroyIcon(IntPtr handle);
+
         public MenuViewController(ShadowsocksController controller)
         {
             this.controller = controller;
@@ -112,13 +115,13 @@ namespace Shadowsocks.View
         {
             if (timerDelayCheckUpdate != null)
             {
-                if (timerDelayCheckUpdate.Interval <= 1000.0 * 30)
+                //if (timerDelayCheckUpdate.Interval <= 1000.0 * 30)
+                //{
+                //    timerDelayCheckUpdate.Interval = 1000.0 * 60 * 5;
+                //}
+                //else
                 {
-                    timerDelayCheckUpdate.Interval = 1000.0 * 60 * 5;
-                }
-                else
-                {
-                    timerDelayCheckUpdate.Interval = 1000.0 * 60 * 60 * 2;
+                    timerDelayCheckUpdate.Interval = 1000.0 * 60 * 60 * 6;
                 }
             }
             updateChecker.CheckUpdate(controller.GetCurrentConfiguration());
@@ -137,7 +140,7 @@ namespace Shadowsocks.View
 
         private void UpdateTrayIcon()
         {
-            int dpi;
+            int dpi = 96;
             using (Graphics graphics = Graphics.FromHwnd(IntPtr.Zero))
             {
                 dpi = (int)graphics.DpiX;
@@ -149,10 +152,10 @@ namespace Shadowsocks.View
 
             try
             {
-                using (Bitmap icon = new Bitmap("icon.png"))
-                {
-                    _notifyIcon.Icon = Icon.FromHandle(icon.GetHicon());
-                }
+                Bitmap icon = new Bitmap("icon.png");
+                Icon newIcon = Icon.FromHandle(icon.GetHicon());
+                _notifyIcon.Icon = newIcon;
+                DestroyIcon(newIcon.Handle);
             }
             catch
             {
@@ -186,7 +189,7 @@ namespace Shadowsocks.View
                     mul_r = 0.4;
                 }
 
-                using (Bitmap iconCopy = new Bitmap(icon))
+                Bitmap iconCopy = new Bitmap(icon);
                 {
                     for (int x = 0; x < iconCopy.Width; x++)
                     {
@@ -200,7 +203,9 @@ namespace Shadowsocks.View
                                 ((byte)(color.B * mul_b))));
                         }
                     }
-                    _notifyIcon.Icon = Icon.FromHandle(iconCopy.GetHicon());
+                    Icon newIcon = Icon.FromHandle(iconCopy.GetHicon());
+                    _notifyIcon.Icon = newIcon;
+                    DestroyIcon(newIcon.Handle);
                 }
             }
 
